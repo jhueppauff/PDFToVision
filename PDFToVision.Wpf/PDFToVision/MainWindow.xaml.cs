@@ -114,7 +114,7 @@ namespace PDFToVision
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "An error occured", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                return null;
+                throw;
             }
         }
 
