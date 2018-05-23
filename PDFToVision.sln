@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFToVision", "..\PDFToVision.Wpf\PDFToVision\PDFToVision.csproj", "{B539C6D9-50EA-45A5-A247-FDCF5D9A6708}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFToVision", ".\PDFToVision.Wpf\PDFToVision\PDFToVision.csproj", "{B539C6D9-50EA-45A5-A247-FDCF5D9A6708}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

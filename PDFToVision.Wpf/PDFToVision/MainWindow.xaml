@@ -1,0 +1,22 @@
+﻿<Window x:Class="PDFToVision.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="676.308" Width="800">
+    <Grid>
+        <Grid Height="100" Margin="10,10,10,0" VerticalAlignment="Top">
+            <TextBox x:Name="TbxFilePath" HorizontalAlignment="Left" Height="23" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="752"/>
+            <Label Content="File Path" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnSend" Content="Send" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="75" Click="BtnSend_Click"/>
+        </Grid>
+        <Grid Margin="10,110,10,240">
+            <TextBox x:Name="TbxOutput" Height="279" Margin="10,10,10,0" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid Height="230" Margin="10,405,10,0" VerticalAlignment="Top">
+            <TextBox x:Name="TbxTextFiltered" Height="210" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        </Grid>
+
+    </Grid>
+</Window>
