@@ -37,13 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ProjectOxford.Vision, Version=1.0.393.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\PDFToVision\packages\Microsoft.ProjectOxford.Vision.1.0.393\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Microsoft.ProjectOxford.Vision.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.ProjectOxford.Vision.1.0.393\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Microsoft.ProjectOxford.Vision.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\PDFToVision\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
-      <HintPath>..\..\PDFToVision\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+      <HintPath>..\..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -108,11 +108,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\PDFToVision\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets" Condition="Exists('..\..\PDFToVision\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets')" />
+  <Import Project="..\..\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets" Condition="Exists('..\..\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\PDFToVision\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\PDFToVision\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets'))" />
+    <Error Condition="!Exists('..\..\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\PDFium.Windows.1.0.0\build\PDFium.Windows.targets'))" />
   </Target>
 </Project>
