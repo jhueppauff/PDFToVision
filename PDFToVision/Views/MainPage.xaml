@@ -20,7 +20,19 @@
             Style="{StaticResource PageTitleStyle}" />
         <Grid
             Grid.Row="1" 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="1476">
+            <Grid HorizontalAlignment="Center" Height="363" Margin="0,10,0,0" VerticalAlignment="Top" Width="1415">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="239*"/>
+                    <RowDefinition Height="124*"/>
+                </Grid.RowDefinitions>
+                <TextBox HorizontalAlignment="Left" Margin="10,63,0,0" Text="" VerticalAlignment="Top" Width="337"/>
+                <TextBlock HorizontalAlignment="Left" Margin="10,38,0,0" Text="File Path" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <Button Content="Send" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="337"/>
+            </Grid>
+            <Grid HorizontalAlignment="Left" Height="564" Margin="10,378,0,0" VerticalAlignment="Top" Width="1466">
+                <TextBox HorizontalAlignment="Center" Margin="0,0,0,0" Text="" VerticalAlignment="Center" Height="544" Width="1446"/>
+            </Grid>
             <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
         </Grid>
