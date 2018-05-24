@@ -1,14 +1,13 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="">
+// <copyright file="MainWindow.xaml.cs" company="https://github.com/jhueppauff/PDFToVision">
 // Copyright 2018 Jhueppauff
 // MIT License
-// For licence details visit 
+// For licence details visit https://github.com/jhueppauff/PDFToVision/blob/master/LICENSE
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace PDFToVision
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Drawing.Imaging;
@@ -18,35 +17,40 @@ namespace PDFToVision
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Button Send Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSend_Click(object sender, RoutedEventArgs e)
         {
-            List<string> imagePath = ConvertToImage();
+            List<string> imagePath = this.ConvertToImage();
 
             if (imagePath != null)
             {
-                VisionProcessing(imagePath).ConfigureAwait(false).GetAwaiter();
+                this.VisionProcessing(imagePath).ConfigureAwait(false).GetAwaiter();
             }
         }
 
+        /// <summary>
+        /// Parses the JSON and gets every word from it
+        /// </summary>
+        /// <param name="result">Json Result from the Vision API</param>
         private void ParseText(string result)
         {
             dynamic json = JsonConvert.DeserializeObject(result);
@@ -73,6 +77,10 @@ namespace PDFToVision
             TbxTextFiltered.Text = builder2.ToString();
         }
 
+        /// <summary>
+        /// Converts the pdf to images
+        /// </summary>
+        /// <returns>List <see cref="List{string}"/> with all paths to the image files</returns>
         private List<string> ConvertToImage()
         {
             try
@@ -84,7 +92,6 @@ namespace PDFToVision
                     string imageDirectory = System.IO.Path.Combine(currentDirectory, "images");
                     List<string> filePaths = new List<string>();
 
-
                     for (int i = 0; i < document.PageCount; i++)
                     {
                         string filePath = System.IO.Path.Combine(imageDirectory, filename + i.ToString() + ".jpeg");
@@ -94,6 +101,7 @@ namespace PDFToVision
                         {
                             System.IO.Directory.CreateDirectory(System.IO.Path.Combine(currentDirectory, "images"));
                         }
+
                         if (!System.IO.Directory.Exists(System.IO.Path.Combine(currentDirectory, "images")))
                         {
                             System.IO.Directory.CreateDirectory(System.IO.Path.Combine(currentDirectory, "images"));
@@ -118,6 +126,11 @@ namespace PDFToVision
             }
         }
 
+        /// <summary>
+        /// Processes the Images with Azure Vison API
+        /// </summary>
+        /// <param name="imagePaths">List <see cref="List{string} with all Image paths"/></param>
+        /// <returns>Returns <see cref="Task"/></returns>
         private async Task VisionProcessing(List<string> imagePaths)
         {
             foreach (var imagePath in imagePaths)
@@ -127,9 +140,7 @@ namespace PDFToVision
                     HttpClient client = new HttpClient();
 
                     // Request Header
-                    client.DefaultRequestHeaders.Add(
-                        "Ocp-Apim-Subscription-Key", Properties.Settings.Default.ApiKey
-                        );
+                    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Properties.Settings.Default.ApiKey);
 
                     // Request parameters.
                     string requestParameters = "language=unk&detectOrientation=true";
@@ -139,7 +150,7 @@ namespace PDFToVision
                     HttpResponseMessage response;
 
                     // Request body. Posts a locally stored JPEG image.
-                    byte[] byteData = GetImageAsByteArray(imagePath);
+                    byte[] byteData = this.GetImageAsByteArray(imagePath);
 
                     using (ByteArrayContent content = new ByteArrayContent(byteData))
                     {
@@ -157,10 +168,11 @@ namespace PDFToVision
                     string contentString = await response.Content.ReadAsStringAsync();
 
                     StringBuilder builder = new StringBuilder();
-                    builder.Append(TbxOutput.Text);
-                    builder.Append(JsonPrettyPrint(contentString));
+                    builder.Append(this.TbxOutput.Text);
+                    builder.Append(this.JsonPrettyPrint(contentString));
                     TbxOutput.Text = builder.ToString();
-                    ParseText(contentString);
+
+                    this.ParseText(contentString);
                 }
                 catch (Exception ex)
                 {
@@ -169,6 +181,11 @@ namespace PDFToVision
             }
         }
 
+        /// <summary>
+        /// Get a Byte Array of an Image File
+        /// </summary>
+        /// <param name="imageFilePath">Path to the file</param>
+        /// <returns>Returns <see cref="Byte[]"/></returns>
         private byte[] GetImageAsByteArray(string imageFilePath)
         {
             using (System.IO.FileStream fileStream =
@@ -184,14 +201,16 @@ namespace PDFToVision
         /// </summary>
         /// <param name="json">The raw JSON string to format.</param>
         /// <returns>The formatted JSON string.</returns>
-        static string JsonPrettyPrint(string json)
+        private string JsonPrettyPrint(string json)
         {
             if (string.IsNullOrEmpty(json))
+            {
                 return string.Empty;
+            }
 
-            json = json.Replace(Environment.NewLine, "").Replace("\t", "");
+            json = json.Replace(Environment.NewLine, string.Empty).Replace("\t", string.Empty);
 
-            string INDENT_STRING = "    ";
+            string intendString = "    ";
             var indent = 0;
             var quoted = false;
             var sb = new StringBuilder();
@@ -203,64 +222,70 @@ namespace PDFToVision
                     case '{':
                     case '[':
                         sb.Append(ch);
+
                         if (!quoted)
                         {
                             sb.AppendLine();
                             Enumerable.Range(0, ++indent).ForEach(
-                                item => sb.Append(INDENT_STRING));
+                                item => sb.Append(intendString));
                         }
+
                         break;
                     case '}':
                     case ']':
+
                         if (!quoted)
                         {
                             sb.AppendLine();
                             Enumerable.Range(0, --indent).ForEach(
-                                item => sb.Append(INDENT_STRING));
+                                item => sb.Append(intendString));
                         }
+
                         sb.Append(ch);
                         break;
                     case '"':
                         sb.Append(ch);
                         bool escaped = false;
                         var index = i;
+
                         while (index > 0 && json[--index] == '\\')
+                        {
                             escaped = !escaped;
+                        }
+
                         if (!escaped)
+                        {
                             quoted = !quoted;
+                        }
+
                         break;
                     case ',':
                         sb.Append(ch);
+
                         if (!quoted)
                         {
                             sb.AppendLine();
                             Enumerable.Range(0, indent).ForEach(
-                                item => sb.Append(INDENT_STRING));
+                                item => sb.Append(intendString));
                         }
+
                         break;
                     case ':':
                         sb.Append(ch);
+
                         if (!quoted)
+                        {
                             sb.Append(" ");
+                        }
+
                         break;
                     default:
                         sb.Append(ch);
                         break;
                 }
             }
+
             return sb.ToString();
         }
     }
-
-    static class Extensions
-    {
-        public static void ForEach<T>(this IEnumerable<T> ie, Action<T> action)
-        {
-            foreach (var i in ie)
-            {
-                action(i);
-            }
-        }
-    }
 }
-
