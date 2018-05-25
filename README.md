@@ -1,8 +1,13 @@
 # PDFToVision
 
-Uses PDF Files and tries to use the Azure Vision API for OCR to get the content of a document. 
+WPF Application which analyses a PDF document using the Azure Vision API.
+https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/
 
 ## Quick Start
+
+- Download the latest release https://github.com/jhueppauff/PDFToVision/releases/latest
+
+## Build it yourself
 
 - Clone Repository
 - Open it in Visual Stuido 2017 (.NET Framework 4.7.2)
