@@ -1,6 +1,7 @@
 # PDFToVision
 
 WPF Application which analyses a PDF document using the Azure Vision API.
+
 https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/
 
 ## Quick Start
