@@ -17,7 +17,7 @@ namespace PDFToVision
     public static class Extensions
     {
         /// <summary>
-        /// Foreach extention method
+        /// Foreach extension method
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="ie"></param>
