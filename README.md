@@ -1,3 +1,7 @@
+> Won't work on this further as efforts are put into a Web Version 
+> https://github.com/jhueppauff/OCREngine
+
+
 # PDFToVision
 
 WPF Application which analyses a PDF document using the Azure Vision API.
